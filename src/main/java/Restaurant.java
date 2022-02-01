@@ -22,26 +22,28 @@ public class Restaurant {
         return currentTime.isAfter(openingTime) && currentTime.isBefore(closingTime);
     }
 
-    public LocalTime getCurrentTime(){ return  LocalTime.now(); }
+    public LocalTime getCurrentTime() {
+        return LocalTime.now();
+    }
 
     public List<Item> getMenu() {
         //DELETE ABOVE RETURN STATEMENT AND WRITE CODE HERE
         return menu;
     }
 
-    private Item findItemByName(String itemName){
-        for(Item item: menu) {
-            if(item.getName().equals(itemName))
+    private Item findItemByName(String itemName) {
+        for (Item item : menu) {
+            if (item.getName().equals(itemName))
                 return item;
         }
         return null;
     }
 
     public void addToMenu(String name, int price) {
-        Item newItem = new Item(name,price);
+        Item newItem = new Item(name, price);
         menu.add(newItem);
     }
-    
+
     public void removeFromMenu(String itemName) throws itemNotFoundException {
 
         Item itemToBeRemoved = findItemByName(itemName);
@@ -50,12 +52,13 @@ public class Restaurant {
 
         menu.remove(itemToBeRemoved);
     }
-    public void displayDetails(){
-        System.out.println("Restaurant:"+ name + "\n"
-                +"Location:"+ location + "\n"
-                +"Opening time:"+ openingTime +"\n"
-                +"Closing time:"+ closingTime +"\n"
-                +"Menu:"+"\n"+getMenu());
+
+    public void displayDetails() {
+        System.out.println("Restaurant:" + name + "\n"
+                + "Location:" + location + "\n"
+                + "Opening time:" + openingTime + "\n"
+                + "Closing time:" + closingTime + "\n"
+                + "Menu:" + "\n" + getMenu());
 
     }
 
@@ -64,6 +67,13 @@ public class Restaurant {
     }
 
     public int totalPriceForSelectedItems(List<String> itemNames) {
-        return 0;
+        int totalPrice = 0;
+        for (String itemName : itemNames) {
+            Item menuItem = findItemByName(itemName);
+            if (menuItem != null) {
+                totalPrice += menuItem.getPrice();
+            }
+        }
+        return totalPrice;
     }
 }
